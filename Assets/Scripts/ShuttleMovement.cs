@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ShuttleMovement : MonoBehaviour {
 
-	public float moveSpeed = 1f;
+	public float moveSpeed = 10f;
 	int i = 0;
 
 	// Use this for initialization
@@ -16,7 +16,7 @@ public class ShuttleMovement : MonoBehaviour {
 
 		//if (i < 20) {
 						// Pull control inputs
-						Vector3 moveDirection = new Vector3 (1f, 0f, 0f);
+						Vector3 moveDirection = new Vector3 (moveSpeed, 0f, 0f);
 			
 						// Merge Control Inputs with Current Direction
 						moveDirection = transform.TransformDirection (moveDirection);

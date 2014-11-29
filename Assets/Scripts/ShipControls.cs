@@ -12,6 +12,8 @@ public class ShipControls : MonoBehaviour {
 	private int targetableMask;
 	private Vector3 moveDirection = Vector3.zero;
 	private Light engine1, engine2, engine3, engine4, spot1, spot2;
+	private GameObject weapon;
+
 
 	// Use this for initialization
 	void Start () {
@@ -66,7 +68,7 @@ public class ShipControls : MonoBehaviour {
 		// Calculate movement changes
 		Move ();
 		Turn ();
-		if (Input.GetKeyDown ("space") || Input.GetKeyDown (KeyCode.Joystick1Button0)) 
+		if (Input.GetButton ("Lock")) 
 		{
 			if (isLocked) {
 				lockTarget = null;
@@ -75,10 +77,13 @@ public class ShipControls : MonoBehaviour {
 			} else {
 				lockTarget = null;
 				lockTarget = TakeAim ();
-				isLocked = (lockTarget != null);
+				if (lockTarget != null)
+				{
+					isLocked = true;
+					lockT.text = "Lock Target: " + lockTarget.name;
+				} else isLocked = false;
 			}
 		}
-
 	}
 
 
@@ -89,12 +94,12 @@ public class ShipControls : MonoBehaviour {
 		Ray targetRay = new Ray (transform.position, transform.forward);
 		if (Physics.Raycast (targetRay, out targetHit, targetRange, targetableMask))
 		{
-			lockT.text = "Lock Target: " + targetHit.transform.name;
 			retObj = targetHit.transform;
 		}
 		return retObj;
 	}
 
+	// Execute Ship Movement
 	private void Move () {
 
 		// Pull control inputs
@@ -114,6 +119,7 @@ public class ShipControls : MonoBehaviour {
 		}
 	}
 
+	// Execute Directional Turning
 	private void Turn () {
 
 		float turnSpd = rotateSpeed * Time.deltaTime;
@@ -124,7 +130,7 @@ public class ShipControls : MonoBehaviour {
 			Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, turnSpd / 150, 10.0F);
 			transform.rotation = Quaternion.LookRotation(newDir);
 
-		}// else {
+		}
 
 			///////////////////////////
 			/// Get Input Values
@@ -186,7 +192,7 @@ public class ShipControls : MonoBehaviour {
 							engine4.intensity = 3f;
 					}
 			}
-		//}
+
 
 	}
 }
