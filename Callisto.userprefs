@@ -1,11 +1,12 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ShootableHealth.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ShipControls.cs">
     <Files>
-      <File FileName="Assets\Scripts\WeaponShooting.cs" Line="51" Column="22" />
-      <File FileName="Assets\Scripts\ShipControls.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ShootableHealth.cs" Line="31" Column="4" />
-      <File FileName="Assets\Scripts\ShuttleMovement.cs" Line="19" Column="53" />
+      <File FileName="Assets\Scripts\LauncherControl.cs" Line="12" Column="3" />
+      <File FileName="Assets\Scripts\ShipControls.cs" Line="57" Column="46" />
+      <File FileName="Assets\Scripts\TorpedoController.cs" Line="22" Column="1" />
+      <File FileName="Assets\Scripts\ShootableHealth.cs" Line="27" Column="1" />
+      <File FileName="Assets\Scripts\WeaponShooting.cs" Line="80" Column="5" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

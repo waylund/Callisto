@@ -6,18 +6,22 @@ public class ShipControls : MonoBehaviour {
 	public float speed = 25f;
 	public float rotateSpeed = 1f;
 	public float targetRange = 100f;
-	public UnityEngine.UI.Text lockT, lightT;
-	private bool isLocked = true;
+	public UnityEngine.UI.Text lockT, lightT, torpT, thT;
+	private bool isLocked = false;
 	private Transform lockTarget;
 	private int targetableMask;
 	private Vector3 moveDirection = Vector3.zero;
 	private Light engine1, engine2, engine3, engine4, spot1, spot2;
-	private GameObject weapon;
+	private LauncherControl launcher;
+	private ShootableHealth targetHealth;
+	float timer = 0f;
+	float betweenLock = .5f;
 
 
 	// Use this for initialization
 	void Start () {
 		targetableMask = LayerMask.GetMask ("Crashable");
+		launcher = GetComponentInChildren<LauncherControl> ();
 		Light[] engineLights = GetComponentsInChildren<Light> ();
 		foreach (Light eL in engineLights) {
 			switch (eL.name) {
@@ -44,7 +48,16 @@ public class ShipControls : MonoBehaviour {
 	}
 
 	void Update () {
-
+		if (isLocked) 
+		{
+			double Thealth = System.Math.Floor (targetHealth.health);
+			if (Thealth > 0)
+				thT.text = "Target Structure: " + System.Math.Floor (targetHealth.health);
+			else
+				thT.text = "Target Structure: Destroyed";
+		}
+		torpT.text = "Torpedos: " + launcher.ammo;
+		timer += Time.deltaTime;
 		// Turn lights On and Off
 		if (Input.GetKeyDown ("l") || Input.GetKeyDown(KeyCode.Joystick1Button3)) {
 			if (spot1.intensity > 0f)
@@ -68,12 +81,15 @@ public class ShipControls : MonoBehaviour {
 		// Calculate movement changes
 		Move ();
 		Turn ();
-		if (Input.GetButton ("Lock")) 
+		if (Input.GetButton ("Lock") && timer > betweenLock) 
 		{
+			timer = 0f;
+
 			if (isLocked) {
 				lockTarget = null;
 				isLocked = false;
 				lockT.text = "Lock Target: None";
+				thT.text = "";
 			} else {
 				lockTarget = null;
 				lockTarget = TakeAim ();
@@ -81,11 +97,17 @@ public class ShipControls : MonoBehaviour {
 				{
 					isLocked = true;
 					lockT.text = "Lock Target: " + lockTarget.name;
+					targetHealth = lockTarget.GetComponent<ShootableHealth>();
+					thT.text = "Target Structure: " + System.Math.Floor(targetHealth.health);
 				} else isLocked = false;
 			}
 		}
 	}
 
+	public Transform getTarget()
+	{
+		return lockTarget;
+	}
 
 	private Transform TakeAim()
 	{

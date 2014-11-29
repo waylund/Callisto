@@ -47,9 +47,11 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\EnvironmentGenerator.cs" />
+     <Compile Include="Assets\Scripts\LauncherControl.cs" />
      <Compile Include="Assets\Scripts\ShipControls.cs" />
      <Compile Include="Assets\Scripts\ShootableHealth.cs" />
      <Compile Include="Assets\Scripts\ShuttleMovement.cs" />
+     <Compile Include="Assets\Scripts\TorpedoController.cs" />
      <Compile Include="Assets\Scripts\WeaponShooting.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.0/UnityEngine.UI.dll</HintPath>
